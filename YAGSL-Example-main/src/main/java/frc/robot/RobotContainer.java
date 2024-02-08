@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import com.ctre.phoenix.led.CANdle;
 import com.ctre.phoenix6.hardware.TalonFX;
 
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
  * little robot logic should actually be handled in the {@link Robot} periodic methods (other than the scheduler calls).
@@ -51,9 +52,10 @@ public class RobotContainer
   TalonFX intakeHigh = new TalonFX(21);
   TalonFX intakelow = new TalonFX(22);
   DoubleSolenoid psht = new DoubleSolenoid(17,PneumaticsModuleType.REVPH, 0, 1);
-  CANdle led = new CANdle(20, "rio");
+  LedSubsystem Led = new LedSubsystem();
   LauncherSubsystem shoot = new LauncherSubsystem(ShootLow, ShootHigh);
   IntakeSubsystem intake = new IntakeSubsystem(intakelow, intakeHigh, psht);
+  
   
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -121,6 +123,11 @@ public class RobotContainer
     controlerY.onTrue(new InstantCommand(() ->shoot.moveLauncher(-0.7, 1)));
     controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0)));
     controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0)));
+    Led.setBrightness(1.0);
+    Led.setColorred();
+
+    
+    
     //controllerA.onFalse(new InstantCommand(() ->intake.moveSolenoid(true)));
     
 
