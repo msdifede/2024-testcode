@@ -5,6 +5,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.hardware.TalonFX;
+
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class LauncherSubsystem extends SubsystemBase
@@ -15,6 +17,7 @@ public class LauncherSubsystem extends SubsystemBase
    */
   private TalonFX launcherMotor1;
   private TalonFX launcherMotor2;
+  DigitalInput toplimitSwitch = new DigitalInput(0);
 
   public LauncherSubsystem(TalonFX launcherMotor1, TalonFX launcherMotor2)
   {
@@ -26,6 +29,13 @@ public class LauncherSubsystem extends SubsystemBase
   public void moveLauncher(double launcherSpeed1, double launcherSpeed2){
     launcherMotor1.set(launcherSpeed1);
     launcherMotor2.set(launcherSpeed2);
+    if (toplimitSwitch.get()){
+      idlelauncher();
+    }
+  }
+  public void idlelauncher(){
+    launcherMotor1.set(.1);
+    launcherMotor2.set(.1);
   }
   //Stops the launcher moters
   public void stopLauncher(){
