@@ -47,16 +47,19 @@ public class LedSubsystem extends SubsystemBase {
         
     }
     
-    public void setColorred(){
+    public static void setColorred(){
             LEDSegment.MainStrip.setColor(red);
         }
-    public void SetGamepiece(){
+    public static void setcolorgreen(){
+            LEDSegment.MainStrip.setColor(green);
+    }
+    public static void SetGamepiece(){
         LEDSegment.MainStrip.setColor(yellow);
     }
-    public void setAnimation(){
+    public static void setAnimation(){
         LEDSegment.MainStrip.setRainbowAnimation(.4);
     }
-    public void setBrightness(double percent) {
+    public static void setBrightness(double percent) {
         candle.configBrightnessScalar(percent, 100);
     }
 
