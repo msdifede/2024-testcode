@@ -18,15 +18,18 @@ public class LauncherSubsystem extends SubsystemBase
   private TalonFX launcherMotor1;
   private TalonFX launcherMotor2;
   DigitalInput toplimitSwitch = new DigitalInput(0);
+  private Transfer transfer;
 
-  public LauncherSubsystem(TalonFX launcherMotor1, TalonFX launcherMotor2)
+  public LauncherSubsystem(TalonFX launcherMotor1, TalonFX launcherMotor2,Transfer transfer)
   {
+    this.transfer = transfer;
     this.launcherMotor1 = launcherMotor1;
     this.launcherMotor2 = launcherMotor2;
     
   }
   //Sets the launcher motor speeds
   public void moveLauncher(double launcherSpeed1, double launcherSpeed2){
+    transfer.activatetransfer(1,1);
     launcherMotor1.set(launcherSpeed1);
     launcherMotor2.set(launcherSpeed2);
     if (toplimitSwitch.get()){
