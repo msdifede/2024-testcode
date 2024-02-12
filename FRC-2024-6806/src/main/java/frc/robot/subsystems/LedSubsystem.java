@@ -40,6 +40,7 @@ public class LedSubsystem extends SubsystemBase {
         candleConfiguration.disableWhenLOS = false;
         candleConfiguration.stripType = LEDStripType.RGB;
         candleConfiguration.brightnessScalar = 1.0;
+        candleConfiguration.v5Enabled = true;
         candleConfiguration.vBatOutputMode = VBatOutputMode.Modulated;
         candle.configAllSettings(candleConfiguration, 100);
 
@@ -70,7 +71,6 @@ public class LedSubsystem extends SubsystemBase {
             LEDSegment.MastEncoderIndicator.fullClear();
             LEDSegment.BoomEncoderIndicator.fullClear();
             LEDSegment.WristEncoderIndicator.fullClear();
-
             LEDSegment.MainStrip.setRainbowAnimation(.4);
         });
     }

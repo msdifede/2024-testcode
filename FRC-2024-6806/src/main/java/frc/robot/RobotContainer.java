@@ -89,8 +89,7 @@ public class RobotContainer
     Command driveFieldOrientedDirectAngle = drivebase.driveCommand(
         () -> MathUtil.applyDeadband(driverXbox.getLeftY(), OperatorConstants.LEFT_Y_DEADBAND),
         () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
-        () -> driverXbox.getRightX(),
-        () -> driverXbox.getRightY());
+        () -> driverXbox.getRawAxis(2));
 
     // Applies deadbands and inverts controls because joysticks
     // are back-right positive while robot
@@ -108,7 +107,7 @@ public class RobotContainer
         () -> driverXbox.getRawAxis(2));
 
     drivebase.setDefaultCommand(
-        !RobotBase.isSimulation() ? driveFieldOrientedAnglularVelocity : driveFieldOrientedDirectAngleSim);
+        !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle : driveFieldOrientedDirectAngleSim);
   }
 
   /**
@@ -130,8 +129,8 @@ public class RobotContainer
     controlerY.onTrue(new InstantCommand(() ->shoot.moveLauncher(-0.7, 1)));
     controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0)));
     controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0)));
-    controllerA_2.onTrue(new InstantCommand(() -> Led.setBrightness(1.0)));
-    controlerY.onFalse(new InstantCommand(() ->Led.setColorred()));
+    //controllerA_2.onTrue(new InstantCommand(() -> Led.setBrightness(1.0)));
+    //controlerY.onFalse(new InstantCommand(() ->Led.setColorred()));
     
     //controllerA.onFalse(new InstantCommand(() ->intake.moveSolenoid(true)));
     
