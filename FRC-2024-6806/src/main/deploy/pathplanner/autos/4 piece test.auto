@@ -12,15 +12,15 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "part 1"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "Intake.java"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "part 1"
           }
         },
         {
@@ -38,12 +38,6 @@
         {
           "type": "named",
           "data": {
-            "name": "Intake.java"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
             "name": "shoot.java"
           }
         },
@@ -51,12 +45,6 @@
           "type": "path",
           "data": {
             "pathName": "part 3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Intake.java"
           }
         },
         {
