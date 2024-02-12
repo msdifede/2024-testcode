@@ -3,41 +3,57 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3269251686783332,
-        "y": 5.589722591070332
+        "x": 0.6876799749223131,
+        "y": 6.716625657904854
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.640780291042712,
-        "y": 5.039651683971493
+        "x": 1.6876799749223148,
+        "y": 6.716625657904854
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.2138469368113065,
-        "y": 4.183067855559489
+        "x": 2.9739142775149157,
+        "y": 7.669725974025252
       },
       "prevControl": {
-        "x": 2.072202396359395,
-        "y": 4.392824712330781
+        "x": 1.9739142775149157,
+        "y": 7.669725974025252
       },
       "nextControl": {
-        "x": 2.3960756915909687,
-        "y": 3.9132111375103706
+        "x": 3.9739142775149157,
+        "y": 7.669725974025252
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.3269251686783332,
-        "y": 5.589722591070332
+        "x": 7.594641126554318,
+        "y": 7.4465315961995895
       },
       "prevControl": {
-        "x": 1.8579423883866004,
-        "y": 4.762166781809858
+        "x": 6.785636262009214,
+        "y": 7.4404993157178145
+      },
+      "nextControl": {
+        "x": 8.403645991099424,
+        "y": 7.452563876681364
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.3632953888810768,
+        "y": 5.540330963958792
+      },
+      "prevControl": {
+        "x": 2.1173304491029112,
+        "y": 6.523592682488064
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,6 +61,11 @@
     }
   ],
   "rotationTargets": [
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    },
     {
       "waypointRelativePos": 1,
       "rotationDegrees": 0,
@@ -61,13 +82,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "5 piece test",
+  "folder": "left path",
   "previewStartingState": {
-    "rotation": 0,
+    "rotation": 59.82647997035562,
     "velocity": 0
   },
   "useDefaultConstraints": true

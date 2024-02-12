@@ -1,0 +1,49 @@
+{
+  "version": 1.0,
+  "startingPose": null,
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot.java"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Intake.java"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "left left contested"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot.java"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "left center contested"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot.java"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

@@ -1,16 +1,16 @@
 {
   "version": 1.0,
-  "startingPose": {
-    "position": {
-      "x": 1.3210694255086541,
-      "y": 6.0
-    },
-    "rotation": 0
-  },
+  "startingPose": null,
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "shoot.java"
+          }
+        },
         {
           "type": "named",
           "data": {
@@ -20,7 +20,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "part 1"
+            "pathName": "right right contested"
           }
         },
         {
@@ -32,7 +32,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "part 2"
+            "pathName": "right center contested"
           }
         },
         {
@@ -44,13 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "part 3"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shoot.java"
+            "pathName": "wait"
           }
         }
       ]
