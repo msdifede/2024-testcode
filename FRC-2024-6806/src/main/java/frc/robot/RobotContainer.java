@@ -47,13 +47,17 @@ public class RobotContainer
 
   // CommandJoystick driverController   = new CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
   XboxController driverXbox = new XboxController(0);
+  XboxController operatorxbox = new XboxController(1);
   TalonFX ShootLow = new TalonFX(17);
   TalonFX ShootHigh = new TalonFX(15);
   TalonFX intakeHigh = new TalonFX(21);
   TalonFX intakelow = new TalonFX(22);
+  TalonFX transfer_1 = new TalonFX(24);
+  TalonFX transfer_2 = new TalonFX(25);
+  Transfer transfer = new Transfer(transfer_2, transfer_1);
   DoubleSolenoid psht = new DoubleSolenoid(17,PneumaticsModuleType.REVPH, 0, 1);
   LedSubsystem Led = new LedSubsystem();
-  LauncherSubsystem shoot = new LauncherSubsystem(ShootLow, ShootHigh);
+  LauncherSubsystem shoot = new LauncherSubsystem(ShootLow, ShootHigh,transfer);
   IntakeSubsystem intake = new IntakeSubsystem(intakelow, intakeHigh, psht);
   
   
@@ -119,14 +123,15 @@ public class RobotContainer
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     JoystickButton controllerA = new JoystickButton(driverXbox, XboxController.Button.kA.value);
     JoystickButton controlerY = new JoystickButton(driverXbox,XboxController.Button.kY.value );
+    JoystickButton controllerA_2 = new JoystickButton(operatorxbox, XboxController.Button.kA.value);
+    JoystickButton controlerY_2 = new JoystickButton(operatorxbox,XboxController.Button.kY.value );
+
     controlerY.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0)));
     controlerY.onTrue(new InstantCommand(() ->shoot.moveLauncher(-0.7, 1)));
     controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0)));
     controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0)));
-    Led.setBrightness(1.0);
-    Led.setColorred();
-
-    
+    controllerA_2.onTrue(new InstantCommand(() -> Led.setBrightness(1.0)));
+    controlerY.onFalse(new InstantCommand(() ->Led.setColorred()));
     
     //controllerA.onFalse(new InstantCommand(() ->intake.moveSolenoid(true)));
     
