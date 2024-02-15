@@ -48,10 +48,10 @@ public class AimGamePiece extends Command{
   {
      
     if (Vision.getYaw() == target){
-        LedSubsystem.setcolorgreen();
+        //LedSubsystem.setcolorgreen();
     }
     else {
-        LedSubsystem.setColorred();
+        //LedSubsystem.setColorred();
     }
     
     double rotationVal = MathUtil.clamp(controller.calculate(Vision.getYaw(), 0.0), -0.5,

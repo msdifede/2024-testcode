@@ -57,6 +57,7 @@ public class RobotContainer
   Transfer transfer = new Transfer(transfer_2, transfer_1);
   DoubleSolenoid psht = new DoubleSolenoid(17,PneumaticsModuleType.REVPH, 0, 1);
   LedSubsystem Led = new LedSubsystem();
+  
   LauncherSubsystem shoot = new LauncherSubsystem(ShootLow, ShootHigh,transfer);
   IntakeSubsystem intake = new IntakeSubsystem(intakelow, intakeHigh, psht);
   
@@ -125,12 +126,12 @@ public class RobotContainer
     JoystickButton controllerA_2 = new JoystickButton(operatorxbox, XboxController.Button.kA.value);
     JoystickButton controlerY_2 = new JoystickButton(operatorxbox,XboxController.Button.kY.value );
 
-    controlerY.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0)));
-    controlerY.onTrue(new InstantCommand(() ->shoot.moveLauncher(-0.7, 1)));
-    controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0)));
-    controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0)));
-    //controllerA_2.onTrue(new InstantCommand(() -> Led.setBrightness(1.0)));
-    //controlerY.onFalse(new InstantCommand(() ->Led.setColorred()));
+    // controlerY.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0)));
+    // controlerY.onTrue(new InstantCommand(() ->shoot.moveLauncher(-0.7, 1)));
+    // controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0)));
+    // controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0)));
+    controllerA.onTrue(new InstantCommand(() -> Led.setBrightness(1.0)));
+    controlerY.onTrue(new InstantCommand(() ->Led.setColorred()));
     
     //controllerA.onFalse(new InstantCommand(() ->intake.moveSolenoid(true)));
     
