@@ -132,8 +132,8 @@ public class RobotContainer
 
     controlerY.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0)));
     controlerY.onTrue(new InstantCommand(() ->shoot.moveLauncher(-0.7, 1)));
-    controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0)));
-    controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0)));
+    controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0,true)));
+    controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0,true)));
     // controllerA.onTrue(new InstantCommand(() -> Led.setBrightness(1.0)));
     controllerX.onTrue(new InstantCommand(() ->Led.setColorred()));
     controllerX.onFalse(new InstantCommand(() ->Led.setAnimation()));
