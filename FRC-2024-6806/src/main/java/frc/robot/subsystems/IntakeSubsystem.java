@@ -47,6 +47,9 @@ public class IntakeSubsystem extends SubsystemBase
     upperMotor.set(0);
     lowerMotor.set(0);
   }
+  public boolean intake_limit(){
+    return intake_limit.get();
+  }
   public void moveSolenoid(boolean open){
     if (open){
       intakeSolenoid.set(DoubleSolenoid.Value.kForward);

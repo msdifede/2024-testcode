@@ -46,7 +46,7 @@ public class shoot extends Command {
   @Override
   public boolean isFinished()
   {
-    return true;
+    return launcherSubsystem.Launcher_limit();
   }
 
   /**

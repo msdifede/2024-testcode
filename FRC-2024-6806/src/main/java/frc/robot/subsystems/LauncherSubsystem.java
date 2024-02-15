@@ -42,6 +42,9 @@ public class LauncherSubsystem extends SubsystemBase
     launcherMotor1.set(.1);
     launcherMotor2.set(.1);
   }
+  public boolean Launcher_limit(){
+    return toplimitSwitch.get();
+  }
   //Stops the launcher moters
   public void stopLauncher(){
     launcherMotor1.set(0);
