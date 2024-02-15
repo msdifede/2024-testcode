@@ -63,8 +63,10 @@ public class LedSubsystem extends SubsystemBase {
         LEDSegment.MainStrip.setRainbowAnimation(.4);
     }
     public void setBrightness(double percent) {
-        System.out.println("hello");
         candle.configBrightnessScalar(percent, 100);
+    }
+    public void clearAnimation(){
+            LEDSegment.MainStrip.clearAnimation();
     }
 
     public Command defaultCommand() {

@@ -125,13 +125,18 @@ public class RobotContainer
     JoystickButton controlerY = new JoystickButton(driverXbox,XboxController.Button.kY.value );
     JoystickButton controllerA_2 = new JoystickButton(operatorxbox, XboxController.Button.kA.value);
     JoystickButton controlerY_2 = new JoystickButton(operatorxbox,XboxController.Button.kY.value );
+    JoystickButton controllerB = new JoystickButton(driverXbox, XboxController.Button.kB.value);
+    JoystickButton controllerX = new JoystickButton(driverXbox, XboxController.Button.kX.value);
+    JoystickButton controllerStart = new JoystickButton(driverXbox, XboxController.Button.kStart.value);
+    
 
-    // controlerY.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0)));
-    // controlerY.onTrue(new InstantCommand(() ->shoot.moveLauncher(-0.7, 1)));
-    // controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0)));
-    // controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0)));
-    controllerA.onTrue(new InstantCommand(() -> Led.setBrightness(1.0)));
-    controlerY.onTrue(new InstantCommand(() ->Led.setColorred()));
+    controlerY.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0)));
+    controlerY.onTrue(new InstantCommand(() ->shoot.moveLauncher(-0.7, 1)));
+    controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0)));
+    controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0)));
+    // controllerA.onTrue(new InstantCommand(() -> Led.setBrightness(1.0)));
+    controllerX.onTrue(new InstantCommand(() ->Led.setColorred()));
+    controllerX.onFalse(new InstantCommand(() ->Led.setAnimation()));
     
     //controllerA.onFalse(new InstantCommand(() ->intake.moveSolenoid(true)));
     

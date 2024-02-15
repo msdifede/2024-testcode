@@ -17,7 +17,7 @@ public class LauncherSubsystem extends SubsystemBase
    */
   private TalonFX launcherMotor1;
   private TalonFX launcherMotor2;
-  DigitalInput toplimitSwitch = new DigitalInput(0);
+  DigitalInput toplimitSwitch = new DigitalInput(2);
   private Transfer transfer;
   private static LedSubsystem led = new LedSubsystem();
 
