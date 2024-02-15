@@ -19,6 +19,7 @@ public class LauncherSubsystem extends SubsystemBase
   private TalonFX launcherMotor2;
   DigitalInput toplimitSwitch = new DigitalInput(0);
   private Transfer transfer;
+  private static LedSubsystem led = new LedSubsystem();
 
   public LauncherSubsystem(TalonFX launcherMotor1, TalonFX launcherMotor2,Transfer transfer)
   {
@@ -34,6 +35,7 @@ public class LauncherSubsystem extends SubsystemBase
     launcherMotor2.set(launcherSpeed2);
     if (toplimitSwitch.get()){
       idlelauncher();
+      led.setcolorgreen();
     }
   }
   public void idlelauncher(){

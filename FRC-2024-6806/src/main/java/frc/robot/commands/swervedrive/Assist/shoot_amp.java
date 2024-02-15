@@ -6,10 +6,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Transfer;
 import frc.robot.subsystems.LauncherSubsystem;
 
-public class shoot extends Command {
+public class shoot_amp extends Command {
     private final LauncherSubsystem launcherSubsystem;
 
-    public shoot(LauncherSubsystem launcherSubsystem){
+    public shoot_amp(LauncherSubsystem launcherSubsystem){
         this.launcherSubsystem = launcherSubsystem;
         addRequirements(launcherSubsystem);
         
@@ -26,7 +26,7 @@ public class shoot extends Command {
   @Override
   public void execute()
   {
-  launcherSubsystem.moveLauncher(1, 0.8);
+  launcherSubsystem.moveLauncher(1, 0.1);
     
   }
 

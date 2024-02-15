@@ -20,7 +20,7 @@ public Transfer(TalonFX TransferMotor1, TalonFX TransferMotor2)
     TransferMotor2.set(TransferSpeed2);
     if (transferstop.get()){
       TransferMotor1.set(0);
-    TransferMotor2.set(0);
+      TransferMotor2.set(0);
     }
     
   }
