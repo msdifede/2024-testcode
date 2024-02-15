@@ -32,7 +32,7 @@ public class IntakeSubsystem extends SubsystemBase
     this.intakeSolenoid = intakeSolenoid;
   }
   //Sets the intake motor speeds
-  public void moveIntake(double upperSpeed, double lowerSpeed){
+  public void moveIntake(double upperSpeed, double lowerSpeed,boolean Intake_up){
     moveSolenoid(true);
     upperMotor.set(upperSpeed);
     lowerMotor.set(lowerSpeed);
@@ -40,6 +40,9 @@ public class IntakeSubsystem extends SubsystemBase
     if (intake_limit.get()){
       stopIntake();
       led.SetGamepiece();
+      if (Intake_up){
+        moveSolenoid(Intake_up);
+      }
     }
   }
   //Stops the Intake
