@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.6876799749223131,
-      "y": 6.716625657904854
+      "x": 1.3210694255086541,
+      "y": 5.562069555857173
     },
-    "rotation": 59.22246961446552
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -26,31 +26,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "left left contested"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shoot.java"
+            "pathName": "Test"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "left center contested"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shoot.java"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "left close"
+            "pathName": "Test-2"
           }
         },
         {

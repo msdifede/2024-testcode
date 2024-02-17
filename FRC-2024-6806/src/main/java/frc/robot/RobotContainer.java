@@ -28,7 +28,12 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 import com.ctre.phoenix.led.CANdle;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.pathplanner.lib.commands.PathfindingCommand;
+
 import frc.robot.commands.swervedrive.Assist.Intake;
+
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -62,12 +67,24 @@ public class RobotContainer
   LauncherSubsystem shoot = new LauncherSubsystem(ShootLow, ShootHigh,transfer);
   IntakeSubsystem intake = new IntakeSubsystem(intakelow, intakeHigh, psht);
   
+  SendableChooser<Command> m_Chooser = new SendableChooser<>(); 
+  
+
+
+  
+
   
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
   public RobotContainer()
   {
+
+    m_Chooser.addOption("SHORT: High Cube Auto", drivebase.getAutonomousCommand("Test"));
+    m_Chooser.addOption("SHORT: Mid Cube Auto", drivebase.getAutonomousCommand("left"));
+    m_Chooser.addOption("CENTER: High Cube + Balance Auto", drivebase.getAutonomousCommand("right"));
+    m_Chooser.addOption("LONG: High Cube Auto", drivebase.getAutonomousCommand("center"));
+    SmartDashboard.putData(m_Chooser);
     // Configure the trigger bindings
     configureBindings();
 
@@ -158,10 +175,11 @@ public class RobotContainer
    *
    * @return the command to run in autonomous
    */
+  
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("Test");
+    return m_Chooser.getSelected();
   }
 
   public void setDriveMode()
