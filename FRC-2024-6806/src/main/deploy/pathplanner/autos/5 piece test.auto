@@ -1,6 +1,12 @@
 {
   "version": 1.0,
-  "startingPose": null,
+  "startingPose": {
+    "position": {
+      "x": 1.3269251686783332,
+      "y": 5.589722591070332
+    },
+    "rotation": 0
+  },
   "command": {
     "type": "sequential",
     "data": {
@@ -45,30 +51,6 @@
           "type": "named",
           "data": {
             "name": "shoot.java"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "part 4"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "part 5"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shoot.java"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "part 6"
           }
         }
       ]

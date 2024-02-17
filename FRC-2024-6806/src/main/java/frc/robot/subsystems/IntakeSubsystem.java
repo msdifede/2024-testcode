@@ -37,12 +37,12 @@ public class IntakeSubsystem extends SubsystemBase
     upperMotor.set(upperSpeed);
     lowerMotor.set(lowerSpeed);
     led.setColorred();
-    if (intake_limit.get()){
-      stopIntake();
-      led.SetGamepiece();
-    }
+    
   }
   //Stops the Intake
+  public void Gamepiece(){
+    led.setcolorgreen();
+  }
   public void stopIntake(){
     upperMotor.set(0);
     lowerMotor.set(0);

@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 
 import com.ctre.phoenix.led.CANdle;
 import com.ctre.phoenix6.hardware.TalonFX;
+import frc.robot.commands.swervedrive.Assist.Intake;
 
 
 /**
@@ -56,7 +57,7 @@ public class RobotContainer
   TalonFX transfer_2 = new TalonFX(25);
   Transfer transfer = new Transfer(transfer_2, transfer_1);
   DoubleSolenoid psht = new DoubleSolenoid(17,PneumaticsModuleType.REVPH, 0, 1);
-  LedSubsystem Led = new LedSubsystem();
+  LedSubsystem led = new LedSubsystem();
   
   LauncherSubsystem shoot = new LauncherSubsystem(ShootLow, ShootHigh,transfer);
   IntakeSubsystem intake = new IntakeSubsystem(intakelow, intakeHigh, psht);
@@ -131,12 +132,13 @@ public class RobotContainer
     
 
     controlerY.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0)));
-    controlerY.onTrue(new InstantCommand(() ->shoot.moveLauncher(-0.7, 1)));
-    controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0,true)));
-    controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0,true)));
+    controlerY.onTrue(new InstantCommand(() ->shoot.moveLauncher(-1, 1)));
+    controllerA.onTrue(new Intake(intake));
+    // controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0,true)));
+    // controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0,true)));
     // controllerA.onTrue(new InstantCommand(() -> Led.setBrightness(1.0)));
-    controllerX.onTrue(new InstantCommand(() ->Led.setColorred()));
-    controllerX.onFalse(new InstantCommand(() ->Led.setAnimation()));
+    controllerA.onFalse(new InstantCommand(() ->led.setAnimation()));
+    
     
     //controllerA.onFalse(new InstantCommand(() ->intake.moveSolenoid(true)));
     
@@ -159,10 +161,22 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return drivebase.getAutonomousCommand("New Auto");
+    return drivebase.getAutonomousCommand("Test");
   }
 
   public void setDriveMode()
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   {
     //drivebase.setDefaultCommand();
   }

@@ -45,7 +45,7 @@ public class Intake extends Command {
   @Override
   public boolean isFinished()
   {
-    return intakeSubsystem.intake_limit();
+    return !intakeSubsystem.intake_limit();
   }
 
   /**
@@ -58,7 +58,8 @@ public class Intake extends Command {
   @Override
   public void end(boolean interrupted)
   {
-    intakeSubsystem.moveIntake(0, 0, true);
+    intakeSubsystem.moveSolenoid(!intakeSubsystem.intake_limit());
+    intakeSubsystem.Gamepiece();
   }
 }
 
