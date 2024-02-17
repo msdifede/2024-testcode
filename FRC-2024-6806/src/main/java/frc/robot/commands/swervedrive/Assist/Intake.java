@@ -25,7 +25,7 @@ public class Intake extends Command {
   public void execute()
   {
     intakeSubsystem.moveSolenoid(isScheduled());
-    intakeSubsystem.moveIntake(1, 1);
+    intakeSubsystem.moveIntake(1, 1,false);
     
   }
 
@@ -45,7 +45,7 @@ public class Intake extends Command {
   @Override
   public boolean isFinished()
   {
-    return true;
+    return !intakeSubsystem.intake_limit();
   }
 
   /**
@@ -58,7 +58,8 @@ public class Intake extends Command {
   @Override
   public void end(boolean interrupted)
   {
-    
+    intakeSubsystem.moveSolenoid(!intakeSubsystem.intake_limit());
+    intakeSubsystem.Gamepiece();
   }
 }
 

@@ -14,11 +14,13 @@ import com.ctre.phoenix.led.SingleFadeAnimation;
 import com.ctre.phoenix.led.StrobeAnimation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
 //import frc.lib.math.MathUtils;
 //import frc.robot.Constants.LightsConstants;
 
 public class LedSubsystem extends SubsystemBase {
     private static final CANdle candle = new CANdle(20);
+    
 
     // Team colors
     public static final Color red = new Color(255, 0, 0);
@@ -40,45 +42,51 @@ public class LedSubsystem extends SubsystemBase {
         candleConfiguration.disableWhenLOS = false;
         candleConfiguration.stripType = LEDStripType.RGB;
         candleConfiguration.brightnessScalar = 1.0;
-        candleConfiguration.v5Enabled = true;
+        candleConfiguration.v5Enabled = false;
         candleConfiguration.vBatOutputMode = VBatOutputMode.Modulated;
         candle.configAllSettings(candleConfiguration, 100);
-
+        LEDSegment.MainStrip.setRainbowAnimation(.4);
+        
         setDefaultCommand(defaultCommand());
+        
         
     }
     
-    public  static void setColorred(){
+    public   void setColorred(){
             LEDSegment.MainStrip.setColor(red);
         }
-    public  static void setcolorgreen(){
+    public   void setcolorgreen(){
             LEDSegment.MainStrip.setColor(green);
     }
-    public  static void SetGamepiece(){
+    public   void SetGamepiece(){
         LEDSegment.MainStrip.setColor(yellow);
     }
-    public  static void setAnimation(){
+    public   void setAnimation(){
         LEDSegment.MainStrip.setRainbowAnimation(.4);
     }
-    public  static void setBrightness(double percent) {
+    public void setBrightness(double percent) {
         candle.configBrightnessScalar(percent, 100);
+    }
+    public void clearAnimation(){
+            LEDSegment.MainStrip.clearAnimation();
     }
 
     public Command defaultCommand() {
         return runOnce(() -> {
-            LEDSegment.BatteryIndicator.fullClear();
-            LEDSegment.PressureIndicator.fullClear();
-            LEDSegment.MastEncoderIndicator.fullClear();
-            LEDSegment.BoomEncoderIndicator.fullClear();
-            LEDSegment.WristEncoderIndicator.fullClear();
-            LEDSegment.MainStrip.setRainbowAnimation(.4);
+            // LEDSegment.BatteryIndicator.fullClear();
+            // LEDSegment.PressureIndicator.fullClear();
+            // LEDSegment.MastEncoderIndicator.fullClear();
+            // LEDSegment.BoomEncoderIndicator.fullClear();
+            // LEDSegment.WristEncoderIndicator.fullClear();
+            // LEDSegment.MainStrip.fullClear();
+            
         });
     }
 
     public Command clearSegmentCommand(LEDSegment segment) {
         return runOnce(() -> {
             segment.clearAnimation();
-            segment.disableLEDs();
+            
         });
     }
 
@@ -89,7 +97,7 @@ public class LedSubsystem extends SubsystemBase {
         BoomEncoderIndicator(5, 1, -1),
         WristEncoderIndicator(6, 1, -1),
         DriverStationIndicator(7, 1, -1),
-        MainStrip(8, 300, 2);
+        MainStrip(0, 300, 2);
 
         public final int startIndex;
         public final int segmentSize;

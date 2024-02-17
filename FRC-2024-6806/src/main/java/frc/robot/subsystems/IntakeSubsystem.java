@@ -7,11 +7,11 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix6.hardware.TalonFX;
 
-
-
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.LedSubsystem;
 
 public class IntakeSubsystem extends SubsystemBase
 {
@@ -19,11 +19,12 @@ public class IntakeSubsystem extends SubsystemBase
   /**
    * Intake Motor objects.
    */
-  
+  DigitalInput intake_limit = new DigitalInput(0);
   private static TalonFX upperMotor;
   private static TalonFX lowerMotor;
   private static DoubleSolenoid intakeSolenoid;
   private PneumaticHub hub = new PneumaticHub(23);
+  private static LedSubsystem led = new LedSubsystem();
   public IntakeSubsystem(TalonFX upperMotor, TalonFX lowerMotor, DoubleSolenoid intakeSolenoid)
   {
     this.upperMotor = upperMotor;
@@ -31,14 +32,23 @@ public class IntakeSubsystem extends SubsystemBase
     this.intakeSolenoid = intakeSolenoid;
   }
   //Sets the intake motor speeds
-  public void moveIntake(double upperSpeed, double lowerSpeed){
+  public void moveIntake(double upperSpeed, double lowerSpeed,boolean Intake_up){
+    moveSolenoid(Intake_up);
     upperMotor.set(upperSpeed);
     lowerMotor.set(lowerSpeed);
+    led.setColorred();
+    
   }
   //Stops the Intake
+  public void Gamepiece(){
+    led.setcolorgreen();
+  }
   public void stopIntake(){
     upperMotor.set(0);
     lowerMotor.set(0);
+  }
+  public boolean intake_limit(){
+    return intake_limit.get();
   }
   public void moveSolenoid(boolean open){
     if (open){

@@ -1,40 +1,20 @@
 package frc.robot.commands.swervedrive.Assist;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.LedSubsystem;
-import frc.robot.subsystems.Vision;
-import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.Transfer;
+import frc.robot.subsystems.LauncherSubsystem;
 
-public class AimGamePiece extends Command{
-    private final SwerveSubsystem swerveSubsystem;
-    private final PIDController   controller;
-    private final Vision Vision;
-    private final double target;
+public class shoot_amp extends Command {
+    private final LauncherSubsystem launcherSubsystem;
 
-
-
-    public AimGamePiece(SwerveSubsystem swerveSubsystem,Vision Vision,double target)
-    {
-      this.target = target;
-      this.swerveSubsystem = swerveSubsystem;
-      controller = new PIDController(1.0, 0.0, 0.0);
-      controller.setTolerance(1);
-      controller.setSetpoint(0.0);
-      this.Vision = Vision;
-      // each subsystem used by the command must be passed into the
-      // addRequirements() method (which takes a vararg of Subsystem)
-      addRequirements(this.swerveSubsystem);
-      addRequirements(this.Vision);
+    public shoot_amp(LauncherSubsystem launcherSubsystem){
+        this.launcherSubsystem = launcherSubsystem;
+        addRequirements(launcherSubsystem);
+        
     }
-
-      /**
-   * The initial subroutine of a command.  Called once when the command is initially scheduled.
-   */
-  @Override
-  public void initialize()
+     public void initialize()
   {
 
   }
@@ -46,17 +26,8 @@ public class AimGamePiece extends Command{
   @Override
   public void execute()
   {
-     
-    if (Vision.getYaw() == target){
-        //LedSubsystem.setcolorgreen();
-    }
-    else {
-        //LedSubsystem.setColorred();
-    }
+  launcherSubsystem.moveLauncher(1, 0.1);
     
-    double rotationVal = MathUtil.clamp(controller.calculate(Vision.getYaw(), 0.0), -0.5,
-                                           0.5);
-    swerveSubsystem.drive(new Translation2d(0, 0.0), rotationVal, true);
   }
 
   /**
@@ -75,7 +46,7 @@ public class AimGamePiece extends Command{
   @Override
   public boolean isFinished()
   {
-    return true;
+    return launcherSubsystem.Launcher_limit();
   }
 
   /**
