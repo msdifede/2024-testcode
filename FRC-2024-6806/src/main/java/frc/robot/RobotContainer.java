@@ -31,6 +31,8 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.pathplanner.lib.commands.PathfindingCommand;
 
 import frc.robot.commands.swervedrive.Assist.Intake;
+import frc.robot.commands.swervedrive.Assist.shoot;
+import frc.robot.commands.swervedrive.Assist.shoot_amp;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -148,13 +150,15 @@ public class RobotContainer
     JoystickButton controllerStart = new JoystickButton(driverXbox, XboxController.Button.kStart.value);
     
 
-    controlerY.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0)));
-    controlerY.onTrue(new InstantCommand(() ->shoot.moveLauncher(-1, 1)));
+    //controlerY.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0)));
+    controlerY.onTrue(new shoot(shoot));
+    controllerB.onTrue(new shoot_amp(shoot));
+    //controlerY.onTrue(new InstantCommand(() ->shoot.moveLauncher(-1, 1)));
     controllerA.onTrue(new Intake(intake));
     // controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0,true)));
     // controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0,true)));
     // controllerA.onTrue(new InstantCommand(() -> Led.setBrightness(1.0)));
-    controllerA.onFalse(new InstantCommand(() ->led.setAnimation()));
+    //controllerA.onFalse(new InstantCommand(() ->led.setAnimation()));
     
     
     //controllerA.onFalse(new InstantCommand(() ->intake.moveSolenoid(true)));
