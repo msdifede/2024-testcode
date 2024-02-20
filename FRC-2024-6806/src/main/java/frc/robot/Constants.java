@@ -36,7 +36,7 @@ public final class Constants
   {
 
     public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.81, 0, .1545);//(0.0013145,0,0.003);
-    public static final PIDConstants ANGLE_PID   = new PIDConstants(75, 0, 1);
+    public static final PIDConstants ANGLE_PID   = new PIDConstants(0.6, 0, 0);
   }
 
   public static final class DrivebaseConstants

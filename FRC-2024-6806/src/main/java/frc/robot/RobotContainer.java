@@ -82,10 +82,10 @@ public class RobotContainer
   public RobotContainer()
   {
 
-    m_Chooser.addOption("SHORT: High Cube Auto", drivebase.getAutonomousCommand("Test"));
-    m_Chooser.addOption("SHORT: Mid Cube Auto", drivebase.getAutonomousCommand("left"));
-    m_Chooser.addOption("CENTER: High Cube + Balance Auto", drivebase.getAutonomousCommand("right"));
-    m_Chooser.addOption("LONG: High Cube Auto", drivebase.getAutonomousCommand("center"));
+    m_Chooser.addOption("Test", drivebase.getAutonomousCommand("test 2 piece"));
+    m_Chooser.addOption("Left", drivebase.getAutonomousCommand("left"));
+    m_Chooser.addOption("Right", drivebase.getAutonomousCommand("right"));
+    m_Chooser.addOption("Center", drivebase.getAutonomousCommand("center"));
     SmartDashboard.putData(m_Chooser);
     // Configure the trigger bindings
     configureBindings();
