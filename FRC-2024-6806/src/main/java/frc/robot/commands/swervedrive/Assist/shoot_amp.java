@@ -59,7 +59,7 @@ public class shoot_amp extends Command {
   @Override
   public void end(boolean interrupted)
   {
-    launcherSubsystem.Gamepiece();
+    //launcherSubsystem.Gamepiece();
     launcherSubsystem.stopLauncher();
   }
 }

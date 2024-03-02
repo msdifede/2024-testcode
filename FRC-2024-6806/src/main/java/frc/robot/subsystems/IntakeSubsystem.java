@@ -19,16 +19,18 @@ public class IntakeSubsystem extends SubsystemBase
   /**
    * Intake Motor objects.
    */
-  DigitalInput intake_limit = new DigitalInput(0);
+  DigitalInput intake_limit_1 = new DigitalInput(0);
+  DigitalInput intake_limit_2 = new DigitalInput(1);
   private static TalonFX upperMotor;
   private static TalonFX lowerMotor;
   private static DoubleSolenoid intakeSolenoid;
   private PneumaticHub hub = new PneumaticHub(23);
   private static LedSubsystem led = new LedSubsystem();
-  public IntakeSubsystem(TalonFX upperMotor, DoubleSolenoid intakeSolenoid)
+  private Transfer transfer;
+  public IntakeSubsystem(TalonFX upperMotor, DoubleSolenoid intakeSolenoid,Transfer transfer )
   {
     this.upperMotor = upperMotor;
-    
+    this.transfer = transfer;
     this.intakeSolenoid = intakeSolenoid;
   }
   //Sets the intake motor speeds
@@ -48,7 +50,7 @@ public class IntakeSubsystem extends SubsystemBase
     
   }
   public boolean intake_limit(){
-    return intake_limit.get();
+    return (intake_limit_1.get()||intake_limit_2.get());
   }
   public void moveSolenoid(boolean open){
     if (open){

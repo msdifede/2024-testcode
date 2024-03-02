@@ -30,13 +30,13 @@ public class LauncherSubsystem extends SubsystemBase
   }
   //Sets the launcher motor speeds
   public void moveLauncher(double launcherSpeed1, double launcherSpeed2){
-    transfer.activatetransfer(1);
+    transfer.activatetransfer(0.3);
     launcherMotor1.set(launcherSpeed1);
     launcherMotor2.set(launcherSpeed2);
-    if (toplimitSwitch.get()){
-       idlelauncher();
-       led.setcolorgreen();
-     }
+    // if (toplimitSwitch.get()){
+    //   idlelauncher();
+    //   led.setcolorgreen();
+    // }
   }
   public void idlelauncher(){
     launcherMotor1.set(.1);
@@ -44,9 +44,6 @@ public class LauncherSubsystem extends SubsystemBase
   }
   public boolean Launcher_limit(){
     return toplimitSwitch.get();
-  }
-  public void Gamepiece(){
-    led.setcolorgreen();
   }
   //Stops the launcher moters
   public void stopLauncher(){

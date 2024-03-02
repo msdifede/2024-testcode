@@ -63,10 +63,11 @@ public class RobotContainer
   TalonFX transfer_2 = new TalonFX(25);
   Transfer transfer = new Transfer(transfer_1);
   DoubleSolenoid psht = new DoubleSolenoid(17,PneumaticsModuleType.REVPH, 0, 1);
+   DoubleSolenoid psht_2 = new DoubleSolenoid(17,PneumaticsModuleType.REVPH, 2, 3);
   LedSubsystem led = new LedSubsystem();
   
   LauncherSubsystem shoot = new LauncherSubsystem(ShootLow, ShootHigh,transfer);
-  IntakeSubsystem intake = new IntakeSubsystem(intakeHigh, psht);
+  IntakeSubsystem intake = new IntakeSubsystem(intakeHigh, psht, transfer);
   
   SendableChooser<Command> m_Chooser = new SendableChooser<>(); 
   
@@ -88,6 +89,7 @@ public class RobotContainer
     SmartDashboard.putData(m_Chooser);
     // Configure the trigger bindings
     configureBindings();
+    double speed = (driverXbox.getRawAxis(3)+1)/2;
 
     AbsoluteDriveAdv closedAbsoluteDriveAdv = new AbsoluteDriveAdv(drivebase,
                                                                    () -> MathUtil.applyDeadband(driverXbox.getLeftY(),
@@ -150,10 +152,10 @@ public class RobotContainer
     
 
     //controlerY.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0)));
-    controlerY.onTrue(new shoot(shoot));
+    //controlerY.onTrue(new shoot(shoot));
     controllerB.onTrue(new shoot_amp(shoot));
-    controlerY.onTrue(new InstantCommand(() ->transfer.activatetransfer(.3)));
-    controlerY.onFalse(new InstantCommand(() ->transfer.activatetransfer(0)));
+    //controlerY.onTrue(new InstantCommand(() ->transfer.activatetransfer(.3)));
+    //controlerY.onFalse(new InstantCommand(() ->transfer.activatetransfer(0)));
     controllerA.onTrue(new Intake(intake));
     // controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0,true)));
     // controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0,true)));

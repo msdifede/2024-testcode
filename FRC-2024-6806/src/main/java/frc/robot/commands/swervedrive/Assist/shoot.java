@@ -26,6 +26,7 @@ public class shoot extends Command {
   @Override
   public void execute()
   {
+    
   launcherSubsystem.moveLauncher(1, 0.8);
     
   }
@@ -58,9 +59,7 @@ public class shoot extends Command {
    */
   @Override
   public void end(boolean interrupted)
-  
   {
-   launcherSubsystem.Gamepiece(); 
-   launcherSubsystem.stopLauncher();
+    
   }
 }
