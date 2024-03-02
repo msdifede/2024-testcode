@@ -197,6 +197,11 @@
       "waypointRelativePos": 8,
       "rotationDegrees": 25.54721293975627,
       "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 3,
+      "rotationDegrees": -7.179218611749344,
+      "rotateFast": false
     }
   ],
   "constraintZones": [],
@@ -213,7 +218,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "goal path",
+  "folder": null,
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

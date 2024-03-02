@@ -26,7 +26,7 @@ public class shoot_amp extends Command {
   @Override
   public void execute()
   {
-  launcherSubsystem.moveLauncher(1, 0.1);
+  launcherSubsystem.moveLauncher(0.3, 0.1);
     
   }
 
@@ -59,6 +59,7 @@ public class shoot_amp extends Command {
   @Override
   public void end(boolean interrupted)
   {
-    
+    launcherSubsystem.Gamepiece();
+    launcherSubsystem.stopLauncher();
   }
 }

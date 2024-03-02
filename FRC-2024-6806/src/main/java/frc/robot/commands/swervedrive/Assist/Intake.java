@@ -59,6 +59,7 @@ public class Intake extends Command {
   public void end(boolean interrupted)
   {
     intakeSubsystem.moveSolenoid(!intakeSubsystem.intake_limit());
+    intakeSubsystem.stopIntake();
     intakeSubsystem.Gamepiece();
   }
 }
