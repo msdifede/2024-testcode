@@ -9,18 +9,18 @@ private TalonFX TransferMotor2;
  DigitalInput transferstop = new DigitalInput(1);
 
     
-public Transfer(TalonFX TransferMotor1, TalonFX TransferMotor2)
+public Transfer(TalonFX TransferMotor1)
   {
     this.TransferMotor1 = TransferMotor1;
-    this.TransferMotor2 = TransferMotor2;
+  
     
   }
-  public void activatetransfer(double TransferSpeed1, double TransferSpeed2){
+  public void activatetransfer(double TransferSpeed1){
     TransferMotor1.set(TransferSpeed1);
-    TransferMotor2.set(TransferSpeed2);
+    
     if (transferstop.get()){
       TransferMotor1.set(0);
-      TransferMotor2.set(0);
+      
     }
     
   }

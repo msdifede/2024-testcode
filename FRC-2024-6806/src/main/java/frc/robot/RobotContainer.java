@@ -59,15 +59,14 @@ public class RobotContainer
   TalonFX ShootLow = new TalonFX(17);
   TalonFX ShootHigh = new TalonFX(15);
   TalonFX intakeHigh = new TalonFX(21);
-  TalonFX intakelow = new TalonFX(22);
-  TalonFX transfer_1 = new TalonFX(24);
+  TalonFX transfer_1 = new TalonFX(22);
   TalonFX transfer_2 = new TalonFX(25);
-  Transfer transfer = new Transfer(transfer_2, transfer_1);
+  Transfer transfer = new Transfer(transfer_1);
   DoubleSolenoid psht = new DoubleSolenoid(17,PneumaticsModuleType.REVPH, 0, 1);
   LedSubsystem led = new LedSubsystem();
   
   LauncherSubsystem shoot = new LauncherSubsystem(ShootLow, ShootHigh,transfer);
-  IntakeSubsystem intake = new IntakeSubsystem(intakelow, intakeHigh, psht);
+  IntakeSubsystem intake = new IntakeSubsystem(intakeHigh, psht);
   
   SendableChooser<Command> m_Chooser = new SendableChooser<>(); 
   
@@ -153,7 +152,8 @@ public class RobotContainer
     //controlerY.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0)));
     controlerY.onTrue(new shoot(shoot));
     controllerB.onTrue(new shoot_amp(shoot));
-    //controlerY.onTrue(new InstantCommand(() ->shoot.moveLauncher(-1, 1)));
+    controlerY.onTrue(new InstantCommand(() ->transfer.activatetransfer(.3)));
+    controlerY.onFalse(new InstantCommand(() ->transfer.activatetransfer(0)));
     controllerA.onTrue(new Intake(intake));
     // controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0,true)));
     // controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0,true)));

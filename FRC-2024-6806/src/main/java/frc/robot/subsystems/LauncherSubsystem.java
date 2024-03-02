@@ -30,7 +30,7 @@ public class LauncherSubsystem extends SubsystemBase
   }
   //Sets the launcher motor speeds
   public void moveLauncher(double launcherSpeed1, double launcherSpeed2){
-    transfer.activatetransfer(1,1);
+    transfer.activatetransfer(1);
     launcherMotor1.set(launcherSpeed1);
     launcherMotor2.set(launcherSpeed2);
     // if (toplimitSwitch.get()){

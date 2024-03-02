@@ -25,17 +25,17 @@ public class IntakeSubsystem extends SubsystemBase
   private static DoubleSolenoid intakeSolenoid;
   private PneumaticHub hub = new PneumaticHub(23);
   private static LedSubsystem led = new LedSubsystem();
-  public IntakeSubsystem(TalonFX upperMotor, TalonFX lowerMotor, DoubleSolenoid intakeSolenoid)
+  public IntakeSubsystem(TalonFX upperMotor, DoubleSolenoid intakeSolenoid)
   {
     this.upperMotor = upperMotor;
-    this.lowerMotor = lowerMotor;
+    
     this.intakeSolenoid = intakeSolenoid;
   }
   //Sets the intake motor speeds
   public void moveIntake(double upperSpeed, double lowerSpeed,boolean Intake_up){
     moveSolenoid(Intake_up);
     upperMotor.set(upperSpeed);
-    lowerMotor.set(lowerSpeed);
+    
     led.setColorred();
     
   }
@@ -45,7 +45,7 @@ public class IntakeSubsystem extends SubsystemBase
   }
   public void stopIntake(){
     upperMotor.set(0);
-    lowerMotor.set(0);
+    
   }
   public boolean intake_limit(){
     return intake_limit.get();
