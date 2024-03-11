@@ -25,6 +25,8 @@ public class IntakeSubsystem extends SubsystemBase
   private static TalonFX lowerMotor;
   private static DoubleSolenoid intakeSolenoid;
   private PneumaticHub hub = new PneumaticHub(23);
+  private boolean isUp = false;
+  
   private static LedSubsystem led = new LedSubsystem();
   private Transfer transfer;
   public IntakeSubsystem(TalonFX upperMotor, DoubleSolenoid intakeSolenoid,Transfer transfer )
@@ -32,11 +34,13 @@ public class IntakeSubsystem extends SubsystemBase
     this.upperMotor = upperMotor;
     this.transfer = transfer;
     this.intakeSolenoid = intakeSolenoid;
+    hub.enableCompressorAnalog(100, 120);
   }
   //Sets the intake motor speeds
-  public void moveIntake(double upperSpeed, double lowerSpeed,boolean Intake_up){
+  public void moveIntake(double upperSpeed, double lowerSpeed,boolean Intake_up, double transferSpeed){
     moveSolenoid(Intake_up);
     upperMotor.set(upperSpeed);
+    
     
     led.setColorred();
     
@@ -46,7 +50,7 @@ public class IntakeSubsystem extends SubsystemBase
     led.setcolorgreen();
   }
   public void stopIntake(){
-    upperMotor.set(0);
+    
     
   }
   public boolean intake_limit(){
@@ -58,6 +62,17 @@ public class IntakeSubsystem extends SubsystemBase
     }
     else{
       intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+  }
+  public void Toggle(){
+    isUp = !(isUp);
+    if (isUp){
+      intakeSolenoid.set(DoubleSolenoid.Value.kForward);
+      moveIntake(1, 1, isUp, .4);
+    }
+    else{
+      intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
+      moveIntake(0, 0, isUp, .4);
     }
   }
 }

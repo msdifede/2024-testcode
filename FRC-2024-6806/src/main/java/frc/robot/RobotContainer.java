@@ -10,11 +10,15 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.PneumaticHub;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -51,22 +55,23 @@ public class RobotContainer
                                                                          "swerve/falcon"));
   // CommandJoystick rotationController = new CommandJoystick(1);
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  CommandJoystick driverController = new CommandJoystick(1);
+  //CommandJoystick driverController = new CommandJoystick(1);
 
   // CommandJoystick driverController   = new CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
   XboxController driverXbox = new XboxController(0);
   XboxController operatorxbox = new XboxController(1);
-  TalonFX ShootLow = new TalonFX(17);
+  TalonFX ShootLow = new TalonFX(22);
   TalonFX ShootHigh = new TalonFX(15);
   TalonFX intakeHigh = new TalonFX(21);
-  TalonFX transfer_1 = new TalonFX(22);
-  TalonFX transfer_2 = new TalonFX(25);
+  TalonFX transfer_1 = new TalonFX(17);
   Transfer transfer = new Transfer(transfer_1);
-  DoubleSolenoid psht = new DoubleSolenoid(17,PneumaticsModuleType.REVPH, 0, 1);
-   DoubleSolenoid psht_2 = new DoubleSolenoid(17,PneumaticsModuleType.REVPH, 2, 3);
+  private PneumaticHub PneumaticHub = new PneumaticHub(23);
+  
+  DoubleSolenoid psht = new DoubleSolenoid(23,PneumaticsModuleType.REVPH, 0, 1);
+   DoubleSolenoid psht_2 = new DoubleSolenoid(23,PneumaticsModuleType.REVPH, 2, 3);
   LedSubsystem led = new LedSubsystem();
   
-  LauncherSubsystem shoot = new LauncherSubsystem(ShootLow, ShootHigh,transfer);
+  LauncherSubsystem shoot = new LauncherSubsystem(ShootLow, ShootHigh,transfer,psht_2);
   IntakeSubsystem intake = new IntakeSubsystem(intakeHigh, psht, transfer);
   
   SendableChooser<Command> m_Chooser = new SendableChooser<>(); 
@@ -128,8 +133,8 @@ public class RobotContainer
         () -> MathUtil.applyDeadband(driverXbox.getLeftX(), OperatorConstants.LEFT_X_DEADBAND),
         () -> driverXbox.getRawAxis(2));
 
-    drivebase.setDefaultCommand(
-        !RobotBase.isSimulation() ? driveFieldOrientedDirectAngle : driveFieldOrientedDirectAngleSim);
+    drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity);
+        //!RobotBase.isSimulation() ? driveFieldOrientedAnglularVelocity : driveFieldOrientedDirectAngleSim);
   }
 
   /**
@@ -142,23 +147,62 @@ public class RobotContainer
   private void configureBindings()
   {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    JoystickButton controllerA = new JoystickButton(driverXbox, XboxController.Button.kA.value);
-    JoystickButton controlerY = new JoystickButton(driverXbox,XboxController.Button.kY.value );
-    JoystickButton controllerA_2 = new JoystickButton(operatorxbox, XboxController.Button.kA.value);
-    JoystickButton controlerY_2 = new JoystickButton(operatorxbox,XboxController.Button.kY.value );
-    JoystickButton controllerB = new JoystickButton(driverXbox, XboxController.Button.kB.value);
-    JoystickButton controllerX = new JoystickButton(driverXbox, XboxController.Button.kX.value);
-    JoystickButton controllerStart = new JoystickButton(driverXbox, XboxController.Button.kStart.value);
-    
+    JoystickButton controllerA = new JoystickButton(operatorxbox, XboxController.Button.kA.value);
+    JoystickButton controlerY = new JoystickButton(operatorxbox,XboxController.Button.kY.value );
+    //JoystickButton controllerA_2 = new JoystickButton(operatorxbox, XboxController.Button.kA.value);
+    //JoystickButton controlerY_2 = new JoystickButton(operatorxbox,XboxController.Button.kY.value );
+    JoystickButton controllerB = new JoystickButton(operatorxbox, XboxController.Button.kB.value);
+    JoystickButton controllerX = new JoystickButton(operatorxbox, XboxController.Button.kX.value);
+    JoystickButton controllerStart = new JoystickButton(operatorxbox, XboxController.Button.kStart.value);
+    JoystickButton controllerRightbump = new JoystickButton(operatorxbox, XboxController.Button.kRightBumper.value);
+    JoystickButton controllerLeftbump = new JoystickButton(operatorxbox, XboxController.Button.kLeftBumper.value);
+    JoystickButton driverTrigger = new JoystickButton(driverXbox, 1);
 
     //controlerY.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0)));
     //controlerY.onTrue(new shoot(shoot));
-    controllerB.onTrue(new shoot_amp(shoot));
-    //controlerY.onTrue(new InstantCommand(() ->transfer.activatetransfer(.3)));
-    //controlerY.onFalse(new InstantCommand(() ->transfer.activatetransfer(0)));
-    controllerA.onTrue(new Intake(intake));
-    // controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-1.0, -1.0,true)));
-    // controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0,true)));
+    //controllerB.onTrue(new shoot_amp(shoot));
+    controlerY.onTrue(new InstantCommand(() ->transfer.activatetransfer(.2)));
+    controlerY.onFalse(new InstantCommand(() ->transfer.activatetransfer(0)));
+    
+    //intake down and up command
+    driverTrigger.onTrue(new InstantCommand(() ->intake.moveIntake(1, 1, true, .4)));
+    driverTrigger.onTrue(new InstantCommand(() ->shoot.moveSolenoid(true)));
+    driverTrigger.onTrue(new InstantCommand(() ->transfer.activatetransfer(.8)));
+    driverTrigger.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0, false, .8)));
+    driverTrigger.onFalse(new InstantCommand(() ->intake.moveSolenoid(false)));
+    driverTrigger.onFalse(new InstantCommand(() ->transfer.activatetransfer(0)));
+    driverTrigger.onFalse(new InstantCommand(() ->shoot.moveSolenoid(false)));
+    
+
+    // shooter up and downcomand
+    controllerLeftbump.onTrue(new InstantCommand(() ->intake.moveSolenoid(true)));
+    controllerLeftbump.onTrue(new InstantCommand(() ->shoot.moveSolenoid(true)));
+    controllerLeftbump.onTrue(new InstantCommand(() ->shoot.moveLauncher(-.6, .7, 0)));
+    controllerLeftbump.onFalse(new InstantCommand(() ->intake.moveSolenoid(false)));
+    controllerLeftbump.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0, 0)));
+    controllerLeftbump.onFalse(new InstantCommand(() ->shoot.moveSolenoid(false)));
+    
+
+// pid values where  "p": 45,
+//   "i": 0,
+//   "d": 0.25,
+
+    
+
+    //controllerA.onTrue(new Intake(intake));
+    controllerX.onTrue(new InstantCommand(() ->shoot.Toggle()));
+    //controllerStart.onTrue(new InstantCommand(() ->intake.Toggle()));
+    controllerStart.onTrue(new InstantCommand(() ->transfer.activatetransfer(1)));
+    controllerStart.onFalse(new InstantCommand(() ->transfer.activatetransfer(0)));
+    controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-.6, -.60,true,0)));
+    controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0,true,0)));
+
+    //controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0,true,0)));
+    controllerB.onTrue(new InstantCommand(() -> shoot.moveLauncher(-.7, .7, 0)));
+    controllerB.onFalse(new InstantCommand(() -> shoot.moveLauncher(0, 0, 0)));
+    //controllerA.onTrue( new ParallelCommandGroup(new InstantCommand(() ->intake.moveSolenoid(true), intake), new InstantCommand(() ->intake.moveIntake(.4, .4, true,.4), intake)));
+    //controllerA.onFalse( new ParallelCommandGroup(new InstantCommand(() ->intake.moveSolenoid(false), intake), new InstantCommand(() ->intake.moveIntake(0,0, false, 0), intake)));
+
     // controllerA.onTrue(new InstantCommand(() -> Led.setBrightness(1.0)));
     //controllerA.onFalse(new InstantCommand(() ->led.setAnimation()));
     
@@ -166,13 +210,13 @@ public class RobotContainer
     //controllerA.onFalse(new InstantCommand(() ->intake.moveSolenoid(true)));
     
 
-    new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
-    new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
-    new JoystickButton(driverXbox,
-                       2).whileTrue(
-        Commands.deferredProxy(() -> drivebase.driveToPose(
-                                   new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
-                              ));
+    //new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
+    //new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
+    // new JoystickButton(driverXbox,
+    //                    2).whileTrue(
+    //     Commands.deferredProxy(() -> drivebase.driveToPose(
+    //                                new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
+    //                           ));
 //    new JoystickButton(driverXbox, 3).whileTrue(new RepeatCommand(new InstantCommand(drivebase::lock, drivebase)));
   }
 
@@ -185,7 +229,11 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    return m_Chooser.getSelected();
+    //return m_Chooser.getSelected();
+    //return new SequentialCommandGroup( new InstantCommand(() ->intake.moveSolenoid(true)).withTimeout(.5),new InstantCommand(() ->shoot.moveSolenoid(true)).withTimeout(.5),
+    //new InstantCommand(() ->shoot.moveLauncher(-.6, .7, 0)).withTimeout(2),new WaitCommand(3), new InstantCommand(() ->transfer.activatetransfer(.8)).withTimeout(.5), new WaitCommand(1),new InstantCommand(() ->intake.moveSolenoid(false)).withTimeout(.5)
+    //, new InstantCommand(() ->shoot.moveLauncher(0, 0, 0)).withTimeout(2),new InstantCommand(() ->shoot.moveSolenoid(false)).withTimeout(.5) );
+    return null;
   }
 
   public void setDriveMode()

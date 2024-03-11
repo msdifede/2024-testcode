@@ -1,20 +1,25 @@
 package frc.robot.commands.swervedrive.Assist;
-
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Transfer;
-import frc.robot.subsystems.LauncherSubsystem;
-
-public class shoot extends Command {
-    private final LauncherSubsystem launcherSubsystem;
-
-    public shoot(LauncherSubsystem launcherSubsystem){
-        this.launcherSubsystem = launcherSubsystem;
-        addRequirements(launcherSubsystem);
+import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+public class shootm extends Command{
+    private final SwerveSubsystem swerveSubsystem;
+    private final PIDController   controller;
+    public shootm (SwerveSubsystem swerveSubsystem){
+        this.swerveSubsystem = swerveSubsystem;
+        controller = new PIDController(1.0, 0.0, 0.0);
+        controller.setTolerance(1);
+        controller.setSetpoint(0.0);
+        addRequirements(this.swerveSubsystem);
         
     }
-     public void initialize()
+    @Override
+  public void initialize()
   {
 
   }
@@ -27,8 +32,10 @@ public class shoot extends Command {
   public void execute()
   {
     
-  launcherSubsystem.moveLauncher(1, 0.8,0);
-    
+    // double drive = MathUtil.clamp(controller.calculate(0.0, 0.0), -0.5,
+    //                                        0.5);
+    // swerveSubsystem.drive(new Translation2d(drive, 0.0), 0, true);
+
   }
 
   /**
@@ -47,7 +54,7 @@ public class shoot extends Command {
   @Override
   public boolean isFinished()
   {
-    return launcherSubsystem.Launcher_limit();
+    return true;
   }
 
   /**
@@ -61,5 +68,5 @@ public class shoot extends Command {
   public void end(boolean interrupted)
   {
     
-  }
+  } 
 }

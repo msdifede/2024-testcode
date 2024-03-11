@@ -18,10 +18,10 @@ public Transfer(TalonFX TransferMotor1)
   public void activatetransfer(double TransferSpeed1){
     TransferMotor1.set(TransferSpeed1);
     
-    if (transferstop_1.get()||transferstop_2.get()){
-      TransferMotor1.set(0);
+    // if (transferstop_1.get()||transferstop_2.get()){
+    //   TransferMotor1.set(0);
       
-    }
+    // }
     
   }
 }

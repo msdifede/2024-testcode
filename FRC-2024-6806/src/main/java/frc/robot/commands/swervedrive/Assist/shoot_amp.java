@@ -26,7 +26,7 @@ public class shoot_amp extends Command {
   @Override
   public void execute()
   {
-  launcherSubsystem.moveLauncher(0.3, 0.1);
+  launcherSubsystem.moveLauncher(0.3, 0.1,0);
     
   }
 

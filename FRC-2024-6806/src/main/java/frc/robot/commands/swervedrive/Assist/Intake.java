@@ -25,7 +25,7 @@ public class Intake extends Command {
   public void execute()
   {
     intakeSubsystem.moveSolenoid(isScheduled());
-    intakeSubsystem.moveIntake(1, 1,false);
+    intakeSubsystem.moveIntake(1, 1,false,0);
     
   }
 
