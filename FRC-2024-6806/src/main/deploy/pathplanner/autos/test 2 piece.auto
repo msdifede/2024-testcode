@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.3194778107617895,
-      "y": 5.53313811473438
+      "x": 1.32,
+      "y": 5.53
     },
-    "rotation": 0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
@@ -20,7 +20,7 @@
         {
           "type": "named",
           "data": {
-            "name": "Intake.java"
+            "name": "shoot.java"
           }
         },
         {
@@ -33,12 +33,6 @@
           "type": "path",
           "data": {
             "pathName": "Test-2"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "shoot.java"
           }
         }
       ]

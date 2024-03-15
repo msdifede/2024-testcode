@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.swervedrive.drivebase.AbsoluteDriveAdv;
@@ -152,16 +153,18 @@ public class RobotContainer
     //JoystickButton controllerA_2 = new JoystickButton(operatorxbox, XboxController.Button.kA.value);
     //JoystickButton controlerY_2 = new JoystickButton(operatorxbox,XboxController.Button.kY.value );
     JoystickButton controllerB = new JoystickButton(operatorxbox, XboxController.Button.kB.value);
+    JoystickButton button7 = new JoystickButton(driverXbox, 7);
     JoystickButton controllerX = new JoystickButton(operatorxbox, XboxController.Button.kX.value);
     JoystickButton controllerStart = new JoystickButton(operatorxbox, XboxController.Button.kStart.value);
     JoystickButton controllerRightbump = new JoystickButton(operatorxbox, XboxController.Button.kRightBumper.value);
     JoystickButton controllerLeftbump = new JoystickButton(operatorxbox, XboxController.Button.kLeftBumper.value);
+    POVButton operatorDpadUp = new POVButton(operatorxbox, 0);
     JoystickButton driverTrigger = new JoystickButton(driverXbox, 1);
 
     //controlerY.onFalse(new InstantCommand(() ->shoot.moveLauncher(0, 0)));
     //controlerY.onTrue(new shoot(shoot));
     //controllerB.onTrue(new shoot_amp(shoot));
-    controlerY.onTrue(new InstantCommand(() ->transfer.activatetransfer(.2)));
+    controlerY.onTrue(new InstantCommand(() ->transfer.activatetransfer(1)));
     controlerY.onFalse(new InstantCommand(() ->transfer.activatetransfer(0)));
     
     //intake down and up command
@@ -190,16 +193,19 @@ public class RobotContainer
     
 
     //controllerA.onTrue(new Intake(intake));
-    controllerX.onTrue(new InstantCommand(() ->shoot.Toggle()));
-    //controllerStart.onTrue(new InstantCommand(() ->intake.Toggle()));
-    controllerStart.onTrue(new InstantCommand(() ->transfer.activatetransfer(1)));
+    operatorDpadUp.onTrue(new InstantCommand(() ->shoot.Toggle()));
+    operatorDpadUp.onTrue(new InstantCommand(() ->intake.Toggle()));
+    //controllerStart.onTrue(new InstantCommand(() ->transfer.activatetransfer(1)));
     controllerStart.onFalse(new InstantCommand(() ->transfer.activatetransfer(0)));
     controllerA.onTrue(new InstantCommand(() ->intake.moveIntake(-.6, -.60,true,0)));
     controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0,true,0)));
 
     //controllerA.onFalse(new InstantCommand(() ->intake.moveIntake(0, 0,true,0)));
-    controllerB.onTrue(new InstantCommand(() -> shoot.moveLauncher(-.7, .7, 0)));
+    controllerB.onTrue(new InstantCommand(() -> shoot.moveLauncher(-1, 1, 0)));
     controllerB.onFalse(new InstantCommand(() -> shoot.moveLauncher(0, 0, 0)));
+
+    button7.onTrue(new InstantCommand(() -> shoot.moveLauncher(-0, .5, 0)));
+    button7.onFalse(new InstantCommand(() -> shoot.moveLauncher(0, 0, 0)));
     //controllerA.onTrue( new ParallelCommandGroup(new InstantCommand(() ->intake.moveSolenoid(true), intake), new InstantCommand(() ->intake.moveIntake(.4, .4, true,.4), intake)));
     //controllerA.onFalse( new ParallelCommandGroup(new InstantCommand(() ->intake.moveSolenoid(false), intake), new InstantCommand(() ->intake.moveIntake(0,0, false, 0), intake)));
 
@@ -210,7 +216,7 @@ public class RobotContainer
     //controllerA.onFalse(new InstantCommand(() ->intake.moveSolenoid(true)));
     
 
-    //new JoystickButton(driverXbox, 1).onTrue((new InstantCommand(drivebase::zeroGyro)));
+    new JoystickButton(driverXbox, 11).onTrue((new InstantCommand(drivebase::zeroGyro)));
     //new JoystickButton(driverXbox, 3).onTrue(new InstantCommand(drivebase::addFakeVisionReading));
     // new JoystickButton(driverXbox,
     //                    2).whileTrue(
@@ -229,11 +235,11 @@ public class RobotContainer
   public Command getAutonomousCommand()
   {
     // An example command will be run in autonomous
-    //return m_Chooser.getSelected();
+    return m_Chooser.getSelected();
     //return new SequentialCommandGroup( new InstantCommand(() ->intake.moveSolenoid(true)).withTimeout(.5),new InstantCommand(() ->shoot.moveSolenoid(true)).withTimeout(.5),
     //new InstantCommand(() ->shoot.moveLauncher(-.6, .7, 0)).withTimeout(2),new WaitCommand(3), new InstantCommand(() ->transfer.activatetransfer(.8)).withTimeout(.5), new WaitCommand(1),new InstantCommand(() ->intake.moveSolenoid(false)).withTimeout(.5)
     //, new InstantCommand(() ->shoot.moveLauncher(0, 0, 0)).withTimeout(2),new InstantCommand(() ->shoot.moveSolenoid(false)).withTimeout(.5) );
-    return null;
+    //return null;
   }
 
   public void setDriveMode()

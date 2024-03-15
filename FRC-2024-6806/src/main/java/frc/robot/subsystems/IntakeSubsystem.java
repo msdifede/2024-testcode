@@ -68,11 +68,11 @@ public class IntakeSubsystem extends SubsystemBase
     isUp = !(isUp);
     if (isUp){
       intakeSolenoid.set(DoubleSolenoid.Value.kForward);
-      moveIntake(1, 1, isUp, .4);
+      moveIntake(0, 0, isUp, 0);
     }
     else{
       intakeSolenoid.set(DoubleSolenoid.Value.kReverse);
-      moveIntake(0, 0, isUp, .4);
+      moveIntake(0, 0, isUp, 0);
     }
   }
 }
